@@ -1,1 +1,15 @@
-
+Referencias
+  https://www.w3schools.com/mysql/mysql_join_left.asp
+  https://www.alura.com.br/artigos/join-e-seus-tipos?gclid=Cj0KCQjwpPKiBhDvARIsACn-gzAxuunig9XqgM_-atEqjHVzgv0lcthyMJhONzlQUJXXSV3PduD9fZAaAiFrEALw_wcB
+  
+Definição
+  A palavra-chave "LEFT JOIN" retorna todos os registros da tabela esquerda(tabela_1), e combina registro (se   nenhum) da tabela direita(tabela_2)
+Exemplo
+  # seleciona a coluna que vc quer colocar na esquerda
+  SELECT coluna_tabela_1 
+  #fala de qual tabela voce retirou ela
+  FROM tabela_1
+  #fala qual tabela vc quer unir
+  LEFT JOIN tabela_2
+  #fala qual é o parametro de união entre elas Ex.: tabela_1.id = tabela_2.id
+  ON tabela_1.coluna_tabela_1 = tabela_2.coluna_tabela_2;
