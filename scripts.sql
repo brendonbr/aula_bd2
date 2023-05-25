@@ -207,3 +207,56 @@ create table instituicoes(
     constraint instituicoes_email_uq
         unique(email)
 );
+
+
+-- -----WORKBENCH ------
+
+-- 1)
+SELECT nome,email 
+FROM clientes
+WHERE UF='RJ';
+
+-- 2)
+
+SELECT id,idcliente,saldo,limite 
+FROM clientes
+WHERE saldo <= limite;
+
+-- 3)
+
+SELECT nome,email 
+FROM clientes
+WHERE mes_niver < 7;
+
+-- 4)
+
+SELECT nome,banco 
+FROM agencias
+WHERE nome LIKE '%A%';
+
+-- 5)
+
+SELECT nome,telefone,banco
+FROM agencias
+WHERE  telefone LIKE '(21)%' OR 
+telefone LIKE '(22)%' OR
+telefone LIKE '(23)%' OR
+telefone LIKE '(24)%' ;
+
+-- 6)
+
+SELECT alu_nome AS 'Nome do Aluno',alu_matricula AS 'Matricula do Aluno'
+FROM 
+WHERE
+
+-- Exemplo JOIN
+
+SELECT nome,aluno 
+FROM contas cn JOIN clientes cl
+ON (cl.id=cn.idCliente)
+WHERE saldo > 1500;
+
+
+SELECT nome,aluno 
+FROM contas cn RIGHT JOIN clientes cl
+ON (cl.id=cn.idCliente);
