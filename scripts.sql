@@ -309,6 +309,17 @@ SELECT cl.nome AS "Nome do cliente", tra.valor AS "Transaçoes feitas"
 FROM clientes cl INNER JOIN transacoes tra
 ON(cl.id=tra.conta);
 
+-- Correção
+
+SELECT cl.nome AS "Nome do cliente", tra.valor AS "Transaçoes feitas"  
+FROM clientes cl 
+INNER JOIN transacoes tra ON(cl.id=tra.conta)
+INNER JOIN transacoes tra ON(cl.id=tra.conta);  
+
+SELECT cl.nome AS "Nome do cliente", tra.valor AS "Transaçoes feitas"  
+FROM clientes cl INNER JOIN transacoes tra
+ON(cl.id=tra.conta);
+
 -- 2. Liste o nome do cliente, o nome da transação, a data da transação e o valor de cada transação;
 
 SELECT cl.nome AS "Nome do cliente", tt.nome AS "Nome da transação", tra.data AS "Data da transação", tra.valor AS "Valor da transação"
@@ -323,6 +334,11 @@ FROM transacoes tra
 INNER JOIN tiposTransacoes tt ON(tt.id=tra.tipo_transacao)
 WHERE tra.data LIKE '%-09-19';
 
+--Correçao
+SELECT data AS "Data de Transação", valor AS "Valor da Transação", tipos_Transações.nome AS "Tipo da Transação"
+FROM transacoes
+INNER JOIN tipos_Transcoes ON transacoes.tipo_transacao = tipos_Transacoes.id
+WHERE data BETWEEN '2019-09-01' AND '2019-09-30';
 -- 4. Liste o nome do cliente, o tipo de sua conta, o valor das transações e o nome do tipo de cada transação, considerando apenas os clientes do estado no Rio de Janeiro e cujo saldo seja superior ao limite.
 
 -- Update necessário pois no Banco de dados não havia alguma linha com esta condição
@@ -336,5 +352,11 @@ INNER JOIN contas co ON(cl.id=co.idCliente)
 INNER JOIN transacoes tra ON(co.id=tra.conta) 
 INNER JOIN tiposTransacoes tt ON(tt.id=tra.tipo_transacao)
 WHERE cl.uf ="RJ" AND co.saldo > co.limite;
+
+
+-- Aula dia 01/06/2023
+--Correção de atividade do Slide 49
+ 
+ 
 
 
