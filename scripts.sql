@@ -260,3 +260,81 @@ WHERE saldo > 1500;
 SELECT nome,aluno 
 FROM contas cn RIGHT JOIN clientes cl
 ON (cl.id=cn.idCliente);
+
+
+-- Atividade INNER JOIN Slide 51-55
+
+-- Criar a tabela tiposTransacoes
+CREATE TABLE tiposTransacoes( id INT(11) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    CONSTRAINT id_tt_pk PRIMARY KEY(id));
+
+
+-- Criar a tabela transacoes
+
+CREATE TABLE transacoes(cod INT(11) NOT NULL AUTO_INCREMENT,
+    conta INT(11) NOT NULL,
+    tipo_transacao INT(11) NOT NULL,
+    valor DECIMAL(9,2) NOT NULL,
+    data DATE NOT NULL,
+    CONSTRAINT id_cod_pk PRIMARY KEY(cod),
+    CONSTRAINT conta_id_fk FOREIGN KEY(conta) REFERENCES Contas(id),
+    CONSTRAINT nome_tt_fk FOREIGN KEY(tipo_transacao) REFERENCES tipoTransacoes(id));
+
+
+-- Registrar dados da tabela tiposTransacoes
+
+INSERT INTO tiposTransacoes(id,nome) VALUES(10,'deposito'),
+(20,'transferencia'),
+(30,'saque');
+
+-- Registrar dados da tabela transacoes
+
+INSERT INTO transacoes(conta,tipo_transacao,valor,data) VALUES(1,10,5000.00,'2018-09-18'),
+(1,30,3000.00,'2018-09-19'),
+(1,20,1000.00,'2018-09-19'),
+(2,30,5000.00,'2018-09-17');
+
+-- Consulta 
+
+SELECT b.nome AS "Nome do Banco", a.nome AS "Nome da Agencia" 
+FROM agencias a INNER JOIN bancos b 
+ON(b.banco_id=a.banco_id);
+
+-- Exercícios:
+
+-- 1. Liste o nome do cliente e o valor de todas as transações realizadas por ele;
+
+SELECT cl.nome AS "Nome do cliente", tra.valor AS "Transaçoes feitas"  
+FROM clientes cl INNER JOIN transacoes tra
+ON(cl.id=tra.conta);
+
+-- 2. Liste o nome do cliente, o nome da transação, a data da transação e o valor de cada transação;
+
+SELECT cl.nome AS "Nome do cliente", tt.nome AS "Nome da transação", tra.data AS "Data da transação", tra.valor AS "Valor da transação"
+FROM  transacoes tra
+INNER JOIN clientes cl ON(cl.id=tra.conta)
+INNER JOIN tiposTransacoes tt ON(tt.id=tra.tipo_transacao);
+
+-- 3. Liste a data, o valor e o nome do tipo de cada transação realizada no mês de setembro de 2019.
+
+SELECT tra.data AS "Data da Transação",tra.valor AS "Valor da Transação", tt.nome AS "Nome da Transação"
+FROM transacoes tra
+INNER JOIN tiposTransacoes tt ON(tt.id=tra.tipo_transacao)
+WHERE tra.data LIKE '%-09-19';
+
+-- 4. Liste o nome do cliente, o tipo de sua conta, o valor das transações e o nome do tipo de cada transação, considerando apenas os clientes do estado no Rio de Janeiro e cujo saldo seja superior ao limite.
+
+-- Update necessário pois no Banco de dados não havia alguma linha com esta condição
+
+UPDATE contas SET saldo=10000 WHERE id=2;
+
+
+SELECT cl.nome AS "Nome de Cliente", co.tipo AS "Tipo de Conta", tra.valor AS "Valor das transções", tt.nome AS "Tipo de Transação"
+FROM clientes cl
+INNER JOIN contas co ON(cl.id=co.idCliente) 
+INNER JOIN transacoes tra ON(co.id=tra.conta) 
+INNER JOIN tiposTransacoes tt ON(tt.id=tra.tipo_transacao)
+WHERE cl.uf ="RJ" AND co.saldo > co.limite;
+
+
