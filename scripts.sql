@@ -1,4 +1,4 @@
-
+ 
 
 -- criar a tabela cliente
 create table clientes(
@@ -358,5 +358,18 @@ WHERE cl.uf ="RJ" AND co.saldo > co.limite;
 --Correção de atividade do Slide 49
  
  
+-- Aula dia 15/06/2023
+-- Clausula HAVING
+-- Funções de Grupo
+SELECT MAX(saldo), MIN(saldo), SUM(saldo), AVG(saldo)
+FROM contas;
 
+SELECT SUM(limites)
+FROM contas;  
 
+-- O * conta todas as linhas, mas pode ser COUNT(cliente_id)
+SELECT COUNT(*) AS "Total de Clientes"
+FROM clientes;
+
+SELECT COUNT(DISTINCT email) AS "Total de Emails únicos"
+FROM clientes;
