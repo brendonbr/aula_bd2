@@ -373,3 +373,35 @@ FROM clientes;
 
 SELECT COUNT(DISTINCT email) AS "Total de Emails únicos"
 FROM clientes;
+
+
+-- Aula 22/06/2023
+SELECT conta, SUM(valor) AS "Somatorio das transações"
+FROM transacoes
+GROUP BY conta;
+
+SELECT conta, COUNT(cod)
+FROM transacoes
+GROUP BY conta;
+
+SELECT conta, tipo_transacao, AVG(valor)
+FROM transacoes
+GROUP BY conta, tipo_transacao;
+
+SELECT tipo, AVG(saldo)
+FROM contas
+WHERE limite > 1000
+GROUP BY tipo;
+-- exibira o saldo médio das contas pelo seu tipo, desde que o limite da conta seja superior a 1000
+
+SELECT contas,tipo_transacao, AVG(valor)
+FROM transacoes
+GROUP BY conta, tipo_transacao
+HAVING AVG(valor) > 2000;
+
+SELECT contas, nome, AVG(valor) 
+FROM transacoes
+INNER JOIN tipotransacoes ON id = tipostransacoes.id  
+GROUP BY conta, tipo_transacao
+HAVING AVG(valor) > 2000;
+
